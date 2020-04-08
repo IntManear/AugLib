@@ -30,7 +30,7 @@ class ScaleImage:
         
         if augimage.format == "array":
 
-            img = scale_array(augimage.img)
+            img = self.scale_array(augimage.img)
                                 
             if augimage.groundTruth is not None:
                 groundTruth = scale_array(augimage.groundTruth)
