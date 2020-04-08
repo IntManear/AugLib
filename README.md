@@ -12,7 +12,7 @@ utils: contains all the utility files. Primarily the wrapper class
 Dataset raw images may or may not have corressponding ground  truth images in different directories like masks in segmentation tasks. Plus there may be other params regarding image manipulation like keeping a track of number of ops performed on an image.
 It just makes things easier
 
-### Porposed rough structure of modules:
+### Proposed rough structure of modules:
 
 ```
 
