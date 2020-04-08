@@ -29,7 +29,7 @@ class CropImage:
         
         if augimage.format == "array":
 
-            img = crop_array(augimage.img)
+            img = self.crop_array(augimage.img)
                                 
             if augimage.groundTruth is not None:
                 groundTruth = crop_array(augimage.groundTruth)
