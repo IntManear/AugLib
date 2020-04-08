@@ -9,7 +9,7 @@ utils: contains all the utility files. Primarily the wrapper class
 
 ### Case for AugImage (the wrapper class)
 
-Dataset raw images may or may not have corressponding ground  truth images in different directories like masks in segmentation tasks. Plus there may be other params regarding image manipulation like keeping a track of number of ops performed on an image.
+Dataset raw images may or may not have corresponding ground  truth images in different directories like masks in segmentation tasks. Plus there may be other params regarding image manipulation like keeping a track of number of ops performed on an image.
 It just makes things easier
 
 ### Proposed rough structure of modules:
@@ -18,7 +18,11 @@ It just makes things easier
 
 class <module name>:
   def __init__():
-    probability: xxx #need to discuss
+    probability: xxx     
+    /// Plan is to assign higher weights to more relvant augmentations. 
+    /// For instance, Flipping the image is more valuable augmentation over let's say, random erase.
+    /// Now, If for instance W1(x1) + W2(x2) is the weight dependence, even for random probabilities x1,x2, W1 has to ensure it leads to higher number.
+    /// We will have to think how to implement this.
     #other module specific init
   
   ...module specific functions that you may need...
