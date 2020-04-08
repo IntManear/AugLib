@@ -5,6 +5,7 @@ import cv2
 from colorama import Fore
 
 class FlipImage:
+    
     """
     Module is used to flip image. Modules are not accessed directly
     by default. Although, the user can do so if its requried.
