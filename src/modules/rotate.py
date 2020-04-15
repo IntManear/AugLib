@@ -43,6 +43,7 @@ class RotateImage:
 
 
         else:
+            augimage.img = Image.fromarray(augimage.img)
             try:
                 #checking image type just incase
                 if isinstance(augimage.img, Image.Image):
