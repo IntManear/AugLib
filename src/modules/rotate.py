@@ -1,7 +1,8 @@
 from PIL import Image
 import cv2
 import math
-from random import randint
+import random
+from colorama import Fore
 
 
 
@@ -17,7 +18,26 @@ class rotateImage:
         angle = random.randint(0,360)
 
         if augimage.format == "array":
-            pass
+            x = im.shape[1]
+            y = im.shape[0]
+            rotation = 45
+            image = imutils.rotate_bound(im,rotation)
+            X = image.shape[1]
+            Y = image.shape[0]
+            angle_a = abs(rotation)
+            angle_b = 90 - angle_a
+            angle_a_rad = math.radians(angle_a)
+            angle_b_rad = math.radians(angle_b)
+            angle_a_sin = math.sin(angle_a_rad)
+            angle_b_sin = math.sin(angle_b_rad)
+            E = (math.sin(angle_a_rad)) / (math.sin(angle_b_rad)) * (Y - X * (math.sin(angle_a_rad) / math.sin(angle_b_rad)))
+            E = E / 1 - (math.sin(angle_a_rad) ** 2 / math.sin(angle_b_rad) ** 2)
+            B = X - E
+            A = (math.sin(angle_a_rad) / math.sin(angle_b_rad)) * B
+
+            crop_img = image[int(round(A)):int(round(Y - A)),int(round(E)):int(round(X - E))]
+            dim = (y,x)
+            final = cv2.resize(crop_img,dim,interpolation = cv2.INTER_AREA)
 
 
         else:
@@ -26,7 +46,7 @@ class rotateImage:
                 if isinstance(augimage.img, Image.Image):
                     x = augimage.img.size[0]
                     y = augimage.img.size[1]
-                    image = augimage.img.rotate(rotation, expand = True)
+                    image = augimage.img.rotate(angle, expand = True)
                     X = image.size[0]
                     Y = image.size[1]
                     angle_a = abs(angle)
@@ -48,3 +68,7 @@ class rotateImage:
                 print(Fore.RED+"Error:"+Fore.RESET, end="")
                 print(e)
                 exit()
+
+        name, ext = augimage.name.split(".")
+        path = augimage.targPath+"/"+name+"_"+str(idx)+"."+ext
+        cv2.imwrite(path, final)
