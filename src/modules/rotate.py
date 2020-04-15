@@ -7,7 +7,7 @@ from colorama import Fore
 
 
 
-class rotateImage:
+class RotateImage:
     def __init__(self):
         self.probability = 0.8
        
@@ -15,10 +15,11 @@ class rotateImage:
         return self._probability
 
 
-    def operate(self,augimage):
-        angle = random.randint(0,360)
-
+    def operate(self,augimage, idx):
+        angle = random.randint(0, 20)
+      
         if augimage.format == "array":
+            return None #currently only supports PIl format
             x = augimage.img.shape[1]
             y = augimage.img.shape[0]
             rotation = 45
@@ -63,8 +64,6 @@ class rotateImage:
                     image = image.crop((int(round(E)), int(round(A)), int(round(X - E)), int(round(Y - A))))
                     final = image.resize((x, y), resample=Image.BICUBIC)
 
-                else:
-                    raise TypeError
             except Exception as e:
                 print(Fore.RED+"Error:"+Fore.RESET, end="")
                 print(e)
@@ -72,4 +71,5 @@ class rotateImage:
 
         name, ext = augimage.name.split(".")
         path = augimage.targPath+"/"+name+"_"+str(idx)+"."+ext
-        cv2.imwrite(path, final)
+        final.save(path)
+        
