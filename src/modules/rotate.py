@@ -1,5 +1,6 @@
 from PIL import Image
 import cv2
+import imutils
 import math
 import random
 from colorama import Fore
@@ -18,10 +19,10 @@ class rotateImage:
         angle = random.randint(0,360)
 
         if augimage.format == "array":
-            x = im.shape[1]
-            y = im.shape[0]
+            x = augimage.img.shape[1]
+            y = augimage.img.shape[0]
             rotation = 45
-            image = imutils.rotate_bound(im,rotation)
+            image = imutils.rotate_bound(augimage.img,angle)
             X = image.shape[1]
             Y = image.shape[0]
             angle_a = abs(rotation)
